@@ -60,7 +60,6 @@ form.addEventListener('submit', function(e) {
             betValue.value = Math.floor(betValue.value * 100) / 100;
             socket.emit('userBet', [socket.id, betValue.value, betColor]);
             balance = balance - betValue.value;
-            betValue.value = '';
             document.getElementById("balance").innerHTML = balance;
         } else {
             popupText.innerHTML = 'Insufficient funds - Your balance is ' + balance + '$ (' + (betValue.value - balance) + '$)';
@@ -187,6 +186,13 @@ socket.on('userBet', function(args) {
             purpleCount.innerHTML++; 
         }
     }
+});
+
+socket.on('updateBalance', function(args) {
+    setTimeout(() => {
+        balance = balance + args;
+        document.getElementById("balance").innerHTML = balance;
+    }, resetTime);
 });
 
 function li(args) {
