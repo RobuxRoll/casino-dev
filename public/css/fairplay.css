@@ -1,0 +1,29 @@
+h1 {
+    color: #FFB300;
+}
+
+h2 {
+    color: #00AAFF;
+}
+
+p {
+    color: #d2d4d6;
+}
+
+.content {
+    padding: 20px;
+}
+
+.code {
+    font-family: monospace !important;
+    color: rgba(255, 255, 255, .4);
+    padding: 30px 40px;
+    font-size: 16px;
+    background: #172044;
+    border: 1px solid rgba(255, 255, 255, .05);
+    overflow: auto;
+}
+
+.mono {
+    font-family: monospace !important; 
+}

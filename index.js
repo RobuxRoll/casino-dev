@@ -1,36 +1,51 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = 3000;
-const time = 10000;
+const time = 28000;
+const rouletteInterval = 10000;
+let bets;
+
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 
-// New User connected
+app.get('/fair-play', (req, res) => {
+  res.sendFile(__dirname + '/public/fairplay.html')
+});
+
+app.get('/contact', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html')
+});
+
 io.on('connection', (socket) => {
-  // Send New User balance
   console.log("Server: New user connected " + socket.id);
-  io.to(socket.id).emit('updateBalance', 1000);
-  // Check if UserID bets
+  io.to(socket.id).emit('updateUser', [1000, socket.id]);
   socket.on('userBet', args => {
     console.log("UserID " + args[0] + ": " + args[1] + " on " + args[2]);
-    // What will Server do if UserID bets
+    io.emit('userBet', args);
   });
 });
 
 function rouletteTimeout() {
-  // Send all Users RoulletteSpin
   let random = Math.floor(Math.random() * 31) + 1;
-  console.log("Server: RouletteSpin " + random + " (next in: " + time + " ms)")
-  io.emit('spin', random);
+  if (random == 31) {
+    result = 'gold';
+  } else if (random % 2 == 0) {
+    result = 'cyan';
+  } else {
+    result = 'purple';
+  }
+  console.log("Server: RouletteSpin " + random + " " + result + " (next in: " + time + " ms)")
+  io.emit('spin', [random, time]);
   setTimeout(rouletteTimeout, time);
 }
 
 http.listen(port, () => {
-  // Starts after NPM START
   console.log(`Server running at http://localhost:${port}/`);
   setTimeout(rouletteTimeout, time);
 });
