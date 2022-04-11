@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io("https://robuxroll.herokuapp.com");
 const form = document.getElementById('form');
 const betValue = document.getElementById('bet-value');
 
