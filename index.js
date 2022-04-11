@@ -1,7 +1,15 @@
 const express = require('express');
 const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const http = require('http');
+const path = require('path');
+const { Server } = require('socket.io');
+const server = http.createServer(app)
+const io = new Server(server, {
+  cors: {
+    origin: "*"
+  }
+});
+
 const port = 3000;
 const time = 28000;
 const rouletteInterval = 10000;
@@ -66,7 +74,7 @@ function rouletteTimeout() {
   setTimeout(rouletteTimeout, time);
 }
 
-http.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
   setTimeout(rouletteTimeout, time);
 });
