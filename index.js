@@ -50,7 +50,7 @@ function rouletteTimeout() {
   for(let i = 0; i < userBetsIds.length; i++) {
     if (userBetsColors[i] == result) {
       let multiplier;
-      if (result == 'purple') {
+      if (result == 'gold') {
         multiplier = 12;
       } else {
         multiplier = 2;
