@@ -10,7 +10,7 @@ const io = new Server(server, {
   }
 });
 
-const port = 3000;
+const port = procesy.env.PORT || 3000;
 const time = 28000;
 const rouletteInterval = 10000;
 
