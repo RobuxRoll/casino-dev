@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Fair Play | ROLLORBIT</title>
+    <title>Login | ROLLORBIT</title>
     <link rel="stylesheet" href="css/client.css">
     <link rel="stylesheet" href="css/format.css">
+    <link rel="stylesheet" href="css/register.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
   </head>
-  <body>
+  <body onload="checkLoggedIn()">
+    <div id="sync-screen" style="display: none;" class="noselect">
+      <div class="center">
+        <img src="/assets/coin_gold.png"/><br>
+        <br>
+        <span>PLEASE HOLD ON</span><br>
+        UNTIL WE SYNC YOU WITH OUR SERVER
+      </div>
+    </div>
     <div class="container">
       <div class="header">
         <div class="auto-width">
@@ -48,38 +57,35 @@
           </div>
         </div>
       </div>
-      <div class="content auto-width">
-        <div class="">
-          <h1>HOW ABOUT FAIR PLAY?</h1>
-          <p>
-            Don't worry that much. Our server system is based on Socket.io system, where users/clients connect to a so called rooms.<br>
-            In these rooms users/clients can update thier requests and server will respond to them, when needed.<br>
-            <br>
-            That means, that behind the scenes there is always server running, that you can connect and enjoy our casino.<br>
-            <br>
-          </p>
-          <h2>HOW IS FAIRNESS TREATED?</h2>
-          <p>
-            Our infrastructure isn't the best, we know that. We chose to treat this problem via server itself.<br>
-            Server is generating random number between 1 to 31, and then decides who has won accordingly.<br>
-            Our server cares all useres the same, thanks to Sockets that sends the random number to every connected user.<br>
-            <br>
-            If you would like to know how the number is generated, here is the code:<br>
-          </p>
-          <pre class="code"><code class="mono">function rouletteTimeout() {
-  let random = Math.floor(Math.random() * 31) + 1;
-  if (random == 31) {
-    result = 'gold';
-  } else if (random % 2 == 0) {
-    result = 'cyan';
-  } else {
-    result = 'purple';
-  }
-  console.log("Server: RouletteSpin " + random + " " + result + " (next in: " + time + " ms)")
-  io.emit('spin', [random, time]);
-  setTimeout(rouletteTimeout, time);
-}</code></pre>
+      <div class="content auto-width bg-demo">
+        <form id="logForm" action="">
+          <div class="register-container noselect">
+              <div class="register-header">
+                Login<br>
+                <span class="register-label register-header-label">
+                  Sing in via this form
+                </span>
+              </div>
+              <div class="register-input">
+                <span class="register-label">
+                  Username
+                </span><br>
+                <input maxlength="12" placeholder="Your Username" id="log-username" type="text"/>
+              </div>
+              <div class="register-input">
+                <span class="register-label">
+                  Password
+                </span><br>
+                <input maxlength="24" placeholder="Your Password" id="log-password" type="password"/>
+              </div>
+              <br>
+              <button type="submit">Log in</button>
+          </div>
+        </form>
+        <div class="center-everything noselect">
+          <a href="/login">I already have an account</a>
         </div>
+        <br>
       </div>
       <div id="popup">
         <div class="auto-width">
@@ -92,5 +98,7 @@
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/client.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/onload.js"></script>
   </body>
 </html>

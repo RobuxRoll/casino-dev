@@ -24,18 +24,33 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-
 app.get('/fair-play', (req, res) => {
   res.sendFile(__dirname + '/public/fairplay.html')
 });
 
 app.get('/contact', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html')
+  res.sendFile(__dirname + '/public/contact.html')
+});
+
+app.get('/register', (req, res) => {
+  res.sendFile(__dirname + '/public/register.html')
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(__dirname + '/public/login.html')
+});
+
+app.get('/profile', (req, res) => {
+  res.sendFile(__dirname + '/public/profile.html')
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + '/public/404.html'); 
 });
 
 io.on('connection', (socket) => {
   console.log("Server: New user connected " + socket.id);
-  io.to(socket.id).emit('updateUser', [1000, socket.id]);
+  io.to(socket.id).emit('connectUser', [1000, socket.id]);
   socket.on('userBet', args => {
     userBetsIds.push(args[0]);
     userBetsCoins.push(args[1]);
@@ -43,6 +58,23 @@ io.on('connection', (socket) => {
     console.log("UserID " + args[0] + ": " + args[1] + " on " + args[2]);
     io.emit('userBet', args);
   });
+  socket.on('userCreate', args => {
+    console.log("Request Register: " + args[0] + ", Password: " + args[1]);
+  });
+  socket.on('userIfExists', args => {
+    console.log("Request Login: " + args[0] + ", Password: " + args[1]);
+    /**
+     * Database Check if User Exists, then Login
+     */
+    let userExists = true;
+    let userName = "Guest";
+    let userBallance = 125540;
+    if (userExists) {
+      io.to(socket.id).emit('userLogin', [userName, userBallance]);
+    } else {
+      io.to(socket.id).emit('userLoginFalse', false);
+    }
+  })
 });
 
 function rouletteTimeout() {
