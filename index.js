@@ -24,18 +24,29 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-
 app.get('/fair-play', (req, res) => {
   res.sendFile(__dirname + '/public/fairplay.html')
 });
 
 app.get('/contact', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html')
+  res.sendFile(__dirname + '/public/contact.html')
+});
+
+app.get('/register', (req, res) => {
+  res.sendFile(__dirname + '/public/register.html')
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(__dirname + '/public/login.html')
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + '/public/404.html'); 
 });
 
 io.on('connection', (socket) => {
   console.log("Server: New user connected " + socket.id);
-  io.to(socket.id).emit('updateUser', [1000, socket.id]);
+  io.to(socket.id).emit('connectUser', [1000, socket.id]);
   socket.on('userBet', args => {
     userBetsIds.push(args[0]);
     userBetsCoins.push(args[1]);
