@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Contact | ROLLORBIT</title>
+    <title>Login | ROLLORBIT</title>
     <link rel="stylesheet" href="css/client.css">
+    <link rel="stylesheet" href="css/format.css">
+    <link rel="stylesheet" href="css/register.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
   </head>
-  <body>
+  <body onload="checkLoggedIn()">
     <div id="sync-screen" style="display: none;" class="noselect">
       <div class="center">
         <img src="/assets/coin_gold.png"/><br>
@@ -55,10 +57,35 @@
           </div>
         </div>
       </div>
-      <div class="content auto-width">
-        <!--
-            Your code here
-        -->
+      <div class="content auto-width bg-demo">
+        <form id="logForm" action="">
+          <div class="register-container noselect">
+              <div class="register-header">
+                Login<br>
+                <span class="register-label register-header-label">
+                  Sing in via this form
+                </span>
+              </div>
+              <div class="register-input">
+                <span class="register-label">
+                  Username
+                </span><br>
+                <input maxlength="12" placeholder="Your Username" id="log-username" type="text"/>
+              </div>
+              <div class="register-input">
+                <span class="register-label">
+                  Password
+                </span><br>
+                <input maxlength="24" placeholder="Your Password" id="log-password" type="password"/>
+              </div>
+              <br>
+              <button type="submit">Log in</button>
+          </div>
+        </form>
+        <div class="center-everything noselect">
+          <a href="/login">I already have an account</a>
+        </div>
+        <br>
       </div>
       <div id="popup">
         <div class="auto-width">
@@ -71,5 +98,7 @@
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/client.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/onload.js"></script>
   </body>
 </html>

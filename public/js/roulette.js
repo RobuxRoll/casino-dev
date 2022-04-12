@@ -217,3 +217,7 @@ function li(args) {
     messages.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
 }
+
+document.getElementById('userLoggedIn').onclick = () => {
+    window.open("/profile","_self");
+}

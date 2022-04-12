@@ -40,6 +40,10 @@ app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/public/login.html')
 });
 
+app.get('/profile', (req, res) => {
+  res.sendFile(__dirname + '/public/profile.html')
+});
+
 app.get('*', (req, res) => {
   res.sendFile(__dirname + '/public/404.html'); 
 });
@@ -54,6 +58,23 @@ io.on('connection', (socket) => {
     console.log("UserID " + args[0] + ": " + args[1] + " on " + args[2]);
     io.emit('userBet', args);
   });
+  socket.on('userCreate', args => {
+    console.log("Request Register: " + args[0] + ", Password: " + args[1]);
+  });
+  socket.on('userIfExists', args => {
+    console.log("Request Login: " + args[0] + ", Password: " + args[1]);
+    /**
+     * Database Check if User Exists, then Login
+     */
+    let userExists = true;
+    let userName = "Guest";
+    let userBallance = 125540;
+    if (userExists) {
+      io.to(socket.id).emit('userLogin', [userName, userBallance]);
+    } else {
+      io.to(socket.id).emit('userLoginFalse', false);
+    }
+  })
 });
 
 function rouletteTimeout() {

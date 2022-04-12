@@ -3,10 +3,21 @@ const socket = io(); // "https://robuxroll.herokuapp.com"
 const popup = document.getElementById('popup');
 const popupText = document.getElementById('popup-text');
 
+document.getElementById('popup-exit').onclick = () => { popup.style.display = 'none' };
+
 let balance = 0;
 let username;
 let isRolling = false;
-let isLoggedIn = true;
+var isLoggedIn = true;
+/**
+ *      .
+ *     / \
+ *      |
+ *      |
+ * 
+ * Need to change this to Const or Function for
+ * cookies implementation, login and register
+ */
 
 socket.on('connectUser', async function(args) {
     if (isLoggedIn) {
@@ -22,3 +33,7 @@ socket.on('connectUser', async function(args) {
         document.getElementById('userGuest').style.display = 'block';
     }
 });
+
+document.getElementById('userLoggedIn').onclick = () => {
+    window.open("/profile","_self");
+}
