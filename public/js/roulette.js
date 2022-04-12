@@ -1,4 +1,5 @@
 const socket = io("https://robuxroll.herokuapp.com");
+
 const form = document.getElementById('form');
 const betValue = document.getElementById('bet-value');
 
@@ -46,7 +47,6 @@ const timer = document.getElementById('timer');
 const submitPurple = document.getElementById('submit-purple');
 const submitGold = document.getElementById('submit-gold');
 const submitCyan = document.getElementById('submit-cyan');
-S
 const betsCyan = document.getElementById('bets-cyan');
 const cyanCount = document.getElementById('cyan-count');
 const cyanCoins = document.getElementById('cyan-coins');
