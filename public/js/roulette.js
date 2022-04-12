@@ -27,6 +27,15 @@ let roll = 0;
 let betColor;
 let isRolling = false;
 let isLoggedIn = true;
+/**
+ *      .
+ *     / \
+ *      |
+ *      |
+ * 
+ * Need to change this to Const or Function for
+ * cookies implementation, login and register
+ */
 
 let winScreenTime = 3000;
 let resetTime = 10000;
@@ -37,7 +46,7 @@ const timer = document.getElementById('timer');
 const submitPurple = document.getElementById('submit-purple');
 const submitGold = document.getElementById('submit-gold');
 const submitCyan = document.getElementById('submit-cyan');
-
+S
 const betsCyan = document.getElementById('bets-cyan');
 const cyanCount = document.getElementById('cyan-count');
 const cyanCoins = document.getElementById('cyan-coins');
