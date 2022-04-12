@@ -9,3 +9,7 @@ function uncheckLoggedIn () {
         window.open("/register","_self");
     }
 }
+
+function checkBody () {
+    document.getElementsByTagName('body')[0].style.overflow = "hidden";
+}

@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
   </head>
-  <body>
+  <body onload="checkBody()">
     <div id="sync-screen" class="noselect">
       <div class="center">
         <img src="/assets/coin_gold.png"/><br>
@@ -166,5 +166,6 @@
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/roulette.js"></script>
+    <script src="/js/onload.js"></script>
   </body>
 </html>

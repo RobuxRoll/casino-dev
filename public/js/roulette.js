@@ -85,6 +85,7 @@ socket.on('spin', function(args) {
     isRolling = true;
     let timeSetter = (args[1] - winScreenTime - resetTime - 1000) / 1000; 
     timerDiv.style.opacity = '0';
+    document.getElementsByTagName('body')[0].style.overflow = "auto";
     document.getElementById('sync-screen').style.display = 'none';
     console.log("Server: RouletteSpin " + args[0] + " (next in: " + args[1] + " ms)");
     submitPurple.style.opacity = '.7';

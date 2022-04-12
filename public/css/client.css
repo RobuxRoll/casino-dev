@@ -542,19 +542,25 @@ input[type=number] {
     }
 
     .header-right {
-        width: 28%;
+        width: 320px;
     }
 
     .header-left {
-        width: 22%;
+        width: 200px;
     }
 
     .header-center {
-        width: 50%;
+        width: calc(100% - 320px - 200px);
     }
 }
 
-@media ( max-width: 860px ) {
+@media ( max-width: 930px ) {
+    .header-center {
+        font-size: 0;
+    }
+}
+
+@media ( max-width: 800px ) {
     #sync-screen > div > span {
         font-size: 20px;
     }
@@ -649,15 +655,7 @@ input[type=number] {
     }
 
     .header-left {
-        width: 80px;
-    }
-
-    .header-left > span {
-        display: none;
-    }
-
-    .header-left::after {
-        left: -25px;
+        width: 190px;
     }
 
     .header-center {
@@ -679,5 +677,27 @@ input[type=number] {
 
     .header-center > a {
         padding: 23px 23px 27px;
+    }
+}
+
+@media ( max-width: 580px ) {
+    .header-left {
+        width: 100%;
+    }
+
+    .header-center {
+        width: 200px;
+    }
+
+    .header-right {
+        width: 140px;
+    }
+
+    .header-center > a {
+        padding-left: 20px;
+    }
+
+    .login {
+        display: none;
     }
 }
