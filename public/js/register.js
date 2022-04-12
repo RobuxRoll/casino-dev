@@ -1,3 +1,5 @@
+const socket = io("https://robuxroll.herokuapp.com");
+
 let regUsername = document.getElementById('reg-username');
 let regPassword1 = document.getElementById('reg-password1');
 let regPassword2 = document.getElementById('reg-password2');

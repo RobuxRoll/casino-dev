@@ -1,3 +1,5 @@
+const socket = io("https://robuxroll.herokuapp.com");
+
 let logUsername = document.getElementById('log-username');
 let logPassword = document.getElementById('log-password');
 
