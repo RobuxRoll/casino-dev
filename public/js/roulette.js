@@ -22,21 +22,49 @@ document.getElementById('b12').onclick = () => { betValue.value = Math.floor((be
 document.getElementById('b2').onclick = () => { betValue.value = Math.floor((betValue.value * 2) * 100) / 100 };
 document.getElementById('bc').onclick = () => { betValue.value = '' };
 
-let balance = 0;
-let username;
 let roll = 0;
 let betColor;
+
+let id;
+let balance = 0;
+let username;
 let isRolling = false;
-let isLoggedIn = true;
-/**
- *      .
- *     / \
- *      |
- *      |
- * 
- * Need to change this to Const or Function for
- * cookies implementation, login and register
- */
+let isLoggedIn = loggedIn(); 
+function loggedIn() {
+    if(getCookie('userId') != '') {
+        socket.emit('checkUser', getCookie('userId'));
+        return true;
+    } else {
+        return false;
+    }
+};
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
+socket.on('updateUser', async function(args) {
+    id = args[0];
+    username = args[1];
+    balance = Math.round(args[2] * 100) / 100;
+    document.getElementById("balance").innerHTML = balance;
+    document.getElementById("username").innerHTML = username;
+    console.log("Server: User Update [" + args + "]");
+    document.getElementById('userLoggedIn').style.display = 'block';
+    document.getElementById('userGuest').style.display = 'none';
+});
 
 let winScreenTime = 3000;
 let resetTime = 10000;
@@ -67,9 +95,9 @@ form.addEventListener('submit', function(e) {
     e.preventDefault();
     if(!isRolling && betValue.value > 0 && isLoggedIn) {    
         if (betValue.value <= balance) {
-            betValue.value = Math.floor(betValue.value * 100) / 100;
-            socket.emit('userBet', [socket.id, betValue.value, betColor]);
             balance = balance - betValue.value;
+            balance = Math.floor(balance * 100) / 100
+            socket.emit('userBet', [id, betValue.value, betColor]);
             document.getElementById("balance").innerHTML = balance;
         } else {
             popupText.innerHTML = 'Insufficient funds - Your balance is ' + balance + '$ (' + (betValue.value - balance) + '$)';
@@ -177,46 +205,28 @@ const updateTimer = (args) => {
     }
 }
 
-// Update for DATABASE
-socket.on('connectUser', async function(args) {
-    if (isLoggedIn) {
-        balance = args[0] * 1;
-        username = "User_" + args[1].slice(-6);
-        document.getElementById("balance").innerHTML = balance;
-        document.getElementById("username").innerHTML = username;
-        console.log("Server: User Update [" + args + "]");
-        document.getElementById('userLoggedIn').style.display = 'block';
-        document.getElementById('userGuest').style.display = 'none';
-    } else {
-        document.getElementById('userLoggedIn').style.display = 'none';
-        document.getElementById('userGuest').style.display = 'block';
-    }
-});
-
-// Change for DATABASE
 socket.on('userBet', function(args) {
     if(!isRolling) {
         console.log("UserID " + args[0] + ": " + args[1] + " on " + args[2]);
         if (args[2] == 'cyan') {
-            betsCyan.innerHTML += '<div><div class="fl">User_' + args[0].slice(-6) + '</div><div class="fr">' + args[1] + '</div></div>';
+            betsCyan.innerHTML += '<div><div class="fl">' + args[0] + '</div><div class="fr">' + args[1] + '</div></div>';
             cyanCoins.innerHTML = cyanCoins.innerHTML * 1 + args[1] * 1;
             cyanCount.innerHTML++; 
         } else if (args[2] == 'gold') {
-            betsGold.innerHTML += '<div><div class="fl">User_' + args[0].slice(-6) + '</div><div class="fr">' + args[1] + '</div></div>';
+            betsGold.innerHTML += '<div><div class="fl">' + args[0] + '</div><div class="fr">' + args[1] + '</div></div>';
             goldCoins.innerHTML = goldCoins.innerHTML * 1 + args[1] * 1;
             goldCount.innerHTML++; 
         } else if (args[2] == 'purple') {
-            betsPurple.innerHTML += '<div><div class="fl">User_' + args[0].slice(-6) + '</div><div class="fr">' + args[1] + '</div></div>';
+            betsPurple.innerHTML += '<div><div class="fl">' + args[0] + '</div><div class="fr">' + args[1] + '</div></div>';
             purpleCoins.innerHTML = purpleCoins.innerHTML * 1 + args[1] * 1;
             purpleCount.innerHTML++; 
         }
     }
 });
 
-// Update for DATABASE
 socket.on('updateBalance', function(args) {
     setTimeout(() => {
-        balance = balance + args;
+        balance = args;
         document.getElementById("balance").innerHTML = balance;
     }, resetTime);
 });

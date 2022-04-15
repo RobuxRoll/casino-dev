@@ -9,6 +9,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#131b3d" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#131b3d" media="(prefers-color-scheme: dark)">
   </head>
   <body>
     <div class="container">
@@ -66,16 +68,8 @@
             <br>
             If you would like to know how the number is generated, here is the code:<br>
           </p>
-          <pre class="code"><code class="mono">function rouletteTimeout() {
+          <pre class="code"><code class="mono">const rouletteTimeout = () => {
   let random = Math.floor(Math.random() * 31) + 1;
-  if (random == 31) {
-    result = 'gold';
-  } else if (random % 2 == 0) {
-    result = 'cyan';
-  } else {
-    result = 'purple';
-  }
-  console.log("Server: RouletteSpin " + random + " " + result + " (next in: " + time + " ms)")
   io.emit('spin', [random, time]);
   setTimeout(rouletteTimeout, time);
 }</code></pre>

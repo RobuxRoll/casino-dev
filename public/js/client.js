@@ -5,33 +5,45 @@ const popupText = document.getElementById('popup-text');
 
 document.getElementById('popup-exit').onclick = () => { popup.style.display = 'none' };
 
-let balance = Cookies.set('balance', parseInt("0"));
-let username = Cookies.set('username', '');
-let isRolling = Cookies.set('isRolling', 'false');
-var isLoggedIn = Cookies.set('isLoggedIn', 'false');
-/**
- *      .
- *     / \
- *      |
- *      |
- * 
- * Need to change this to Const or Function for
- * cookies implementation, login and register
- */
-
-socket.on('connectUser', async function(args) {
-    if (isLoggedIn) {
-        balance = args[0] * 1;
-        username = "User_" + args[1].slice(-6);
-        document.getElementById("balance").innerHTML = balance;
-        document.getElementById("username").innerHTML = username;
-        console.log("Server: User Update [" + args + "]");
-        document.getElementById('userLoggedIn').style.display = 'block';
-        document.getElementById('userGuest').style.display = 'none';
+let id;
+let balance = 0;
+let username;
+let isRolling = false;
+let isLoggedIn = loggedIn(); 
+function loggedIn() {
+    if(getCookie('userId') != '') {
+        socket.emit('checkUser', getCookie('userId'));
+        return true;
     } else {
-        document.getElementById('userLoggedIn').style.display = 'none';
-        document.getElementById('userGuest').style.display = 'block';
+        return false;
     }
+};
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
+socket.on('updateUser', async function(args) {
+    id = args[0];
+    username = args[1];
+    balance = Math.round(args[2] * 100) / 100;
+    document.getElementById("balance").innerHTML = balance;
+    document.getElementById("username").innerHTML = username;
+    console.log("Server: User Update [" + args + "]");
+    document.getElementById('userLoggedIn').style.display = 'block';
+    document.getElementById('userGuest').style.display = 'none';
 });
 
 document.getElementById('userLoggedIn').onclick = () => {

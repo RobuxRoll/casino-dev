@@ -1,5 +1,3 @@
-const socket = io("https://robuxroll.herokuapp.com");
-
 let regUsername = document.getElementById('reg-username');
 let regPassword1 = document.getElementById('reg-password1');
 let regPassword2 = document.getElementById('reg-password2');
@@ -74,6 +72,14 @@ regForm.addEventListener('submit', function(e) {
     e.preventDefault();
     if (check1 && check2 && check3 && check4) {
         socket.emit('userCreate', [regUsername.value, regPassword1.value]);
-        window.open("/login","_self");
     }
+});
+
+socket.on('userCreated', function(args) {
+    window.open("/login","_self");
+});
+
+socket.on('userCreatedFalse', function(args) {
+    popupText.innerHTML = "Username is already used";
+    popup.style.display = "block";
 });

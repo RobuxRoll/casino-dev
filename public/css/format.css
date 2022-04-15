@@ -79,3 +79,46 @@ h3, span, p {
 .mono {
     font-family: monospace !important; 
 }
+
+.profile-div {
+    float: left;
+    padding: 10px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .2);
+}
+
+.profile-div > img {
+    float: left;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.profile-div > div, .profile-div > span {
+    float: left;
+    color: white;
+    margin: 15px 20px;
+    position: relative;
+}
+
+.profile-div > div > svg {
+    height: 17px;
+    position: absolute;
+    left: 20px;
+    top: 1px;
+}
+
+.profile-logout {
+    margin-top: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.bg-demo2 {
+    display:table;
+    background: url('/assets/bg_demo.png');
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 0 20px 20px #131b3d;
+    padding: 20px 50px;
+}
