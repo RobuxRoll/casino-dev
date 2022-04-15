@@ -5,10 +5,10 @@ const popupText = document.getElementById('popup-text');
 
 document.getElementById('popup-exit').onclick = () => { popup.style.display = 'none' };
 
-let balance = 0;
-let username;
-let isRolling = false;
-var isLoggedIn = true;
+let balance = Cookies.set('balance', parseInt("0"));
+let username = Cookies.set('username', '');
+let isRolling = Cookies.set('isRolling', 'false');
+var isLoggedIn = Cookies.set('isLoggedIn', 'false');
 /**
  *      .
  *     / \
