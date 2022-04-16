@@ -1,6 +1,6 @@
 ### [github.com/RobuxRoll/casino-dev](https://github.com/RobuxRoll/casino-dev/)
 #### [robuxroll.herokuapp.com](https://robuxroll.herokuapp.com/contact)
-![image](https://user-images.githubusercontent.com/83291717/163669580-2141686e-05b1-4e61-aa2b-94e023d8c59f.png)
+![image](https://raw.githubusercontent.com/RobuxRoll/casino-assets/main/title.png)
 
 
 #### About this project
@@ -31,6 +31,6 @@ npm start
  - Please, before using or cloning this project, read our [License Terms](https://github.com/RobuxRoll/casino-dev/blob/main/LICENSE).
  - **By cloning, you are agreeing to the license and its intent.**
 
-![image](https://user-images.githubusercontent.com/83291717/163668752-63f2abd8-76ab-494a-bba8-42d03c795ce6.png)
+![image](https://raw.githubusercontent.com/RobuxRoll/casino-assets/main/banner.png)
 
 ##### Copyright © 2022 RobuxRoll (RollOrbit). All rights reserved.
