@@ -226,7 +226,7 @@ socket.on('userBet', function(args) {
 
 socket.on('updateBalance', function(args) {
     setTimeout(() => {
-        balance = args;
+        balance = Math.round(args * 100) / 100;
         document.getElementById("balance").innerHTML = balance;
     }, resetTime);
 });

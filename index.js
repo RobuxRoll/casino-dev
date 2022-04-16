@@ -13,6 +13,8 @@ const io = new Server(server, {
 const port = process.env.PORT || 3000;
 const time = 28000;
 const rouletteInterval = 10000;
+const newUserBonus = 5;
+const dailyBonus = .1;
 
 let userBetsIds = [];
 let userBetsSocketIds = [];
@@ -22,6 +24,7 @@ let userBetsColors = [];
 let regUserName = ['TestAccount'];
 let regUserPassword = ['test123456789'];
 let regUserBalance = [100000];
+let regUserDailyReward = [0];
 
 app.use(express.static(__dirname + '/public'));
 
@@ -73,7 +76,8 @@ io.on('connection', (socket) => {
       console.log("Request Register: " + args[0] + ", Password: " + args[1]);
       regUserName.push(args[0]);
       regUserPassword.push(args[1]);
-      regUserBalance.push(1000);
+      regUserBalance.push(newUserBonus);
+      regUserDailyReward.push(0);
       io.to(socket.id).emit('userCreated', args);
     } else {
       io.to(socket.id).emit('userCreatedFalse', false);
@@ -97,7 +101,20 @@ io.on('connection', (socket) => {
 
   socket.on('checkUser', args => {
     io.to(socket.id).emit('updateUser', [args, regUserName[args], regUserBalance[args]]);
-  })
+  });
+
+  socket.on('dailyReward', args => {
+    if (Date.now() > regUserDailyReward[args]) {
+      regUserBalance[args] = regUserBalance[args] + dailyBonus;
+      io.to(socket.id).emit('updateBalance', regUserBalance[args]);
+      var tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate()+1);
+      regUserDailyReward[args] = (tomorrow);
+      console.log("User[" + args + "]: Reward Success (next time " + regUserDailyReward[args] + ")");
+    } else {
+      io.to(socket.id).emit('updateBalanceFailed', regUserDailyReward[args]);
+    }
+  });
 });
 
 const userExists = (username, password) => {

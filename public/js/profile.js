@@ -10,3 +10,18 @@ socket.on('updateUser', async function(args) {
     document.getElementById("profileBalance").innerHTML = balance;
     document.getElementById("profileUsername").innerHTML = username;
 });
+
+document.getElementById('profileDailyreward').onclick = () => {
+    socket.emit('dailyReward', id);
+};
+
+socket.on('updateBalance', function(args) {
+    balance = Math.round(args * 100) / 100;
+    document.getElementById("balance").innerHTML = balance;
+    document.getElementById("profileBalance").innerHTML = balance;
+});
+
+socket.on('updateBalanceFailed', function(args) {
+    popupText.innerHTML = "You can withdraw your daily reward tomorrow!";
+    popup.style.display = "block";
+});
