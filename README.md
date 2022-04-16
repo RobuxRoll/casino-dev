@@ -22,10 +22,10 @@ npm start
 
 #### Our team
  - **Jan Poláček** - [@neostetic](https://github.com/neostetic) - Owner, Frontend/Backend Developer
- - **Erik Reindl** - [@KRBNJSF](https://github.com/neostetic) - Backend Developer, Cookies
- - **Jakub Novotný** - [@JakubNovotnyBi](https://github.com/neostetic) - Database, Documentation
- - **Christian Abraham** - [@Chr1st1ancz](https://github.com/neostetic) - Presentation, Aditional Help
- - **Michal Bezděk** - [@Michal1218](https://github.com/neostetic) - Aditional Help
+ - **Erik Reindl** - [@KRBNJSF](https://github.com/KRBNJSF) - Backend Developer, Cookies
+ - **Jakub Novotný** - [@JakubNovotnyBi](https://github.com/JakubNovotnyBi) - Database, Documentation
+ - **Christian Abraham** - [@Chr1st1ancz](https://github.com/Chr1st1ancz) - Presentation, Aditional Help
+ - **Michal Bezděk** - [@Michal1218](https://github.com/Michal1218) - Aditional Help
  
 #### Legal actions
  - Please, before using or cloning this project, read our [License Terms](https://github.com/RobuxRoll/casino-dev/blob/main/LICENSE).
