@@ -13,8 +13,8 @@ const io = new Server(server, {
 const port = process.env.PORT || 3000;
 const time = 28000;
 const rouletteInterval = 10000;
-const newUserBonus = 5;
-const dailyBonus = .1;
+const newUserBonus = 100;
+const dailyBonus = 10;
 
 let userBetsIds = [];
 let userBetsSocketIds = [];
