@@ -48,7 +48,7 @@ h2 {
     padding: 30px 10px;
     border: 15px solid #48cfad;
     box-shadow: inset 10px 10px rgba(0,0,0,.3);
-    border-radius: 500px;
+    border-radius: 300px;
     position: relative;
 }
 
@@ -100,7 +100,7 @@ h2 {
     margin: 5px;
     border-radius: 10px;
     background: white;
-    padding: 40px 0;
+    padding: 10px 0;
     cursor: pointer;
     font-weight: bold;
     box-shadow: 0 10px rgba(0,0,0,.6);
