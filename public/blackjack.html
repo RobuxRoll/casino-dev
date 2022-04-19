@@ -64,22 +64,27 @@
     </div>
     <div class="content auto-width">
         <div class="bj-play noselect">
+            <div class="center" id="bjScoreBubble">
+                <span id="bjScoreBubbleText"></span><br>
+                <span class="bj-small-label">*click on this bubble to close it</span>
+            </div>
+            <h2>BLACKJACK</h2>
             <div class="bj-label">DEALER's CARDS</div>
-            VALUE: <span id="dealerValue">0</span>
-            <div class="bj-play-cards">
+            <span>VALUE: <span id="dealerValue">0</span></span>
+            <div class="bj-play-cards" id="dealerCards">
                 <div class="bj-card"></div>
             </div>
             <div class="bj-label">YOUR CARDS</div>
-            VALUE: <span id="playerValue">0</span>
-            <div class="bj-play-cards">
+            <span>VALUE: <span id="playerValue">0</span></span>
+            <div class="bj-play-cards" id="playerCards">
                 <div class="bj-card"></div>
             </div>
             <div class="bj-buttons">
-                <div>HIT ME</div>
-                <div>STAND</div>
+                <div id="bjHitme">HIT ME</div>
+                <div id="bjStand">STAND</div>
             </div>
             <form id="form" action="">
-                <input class="bj-input" type="number" min="2" placeholder="min $2"/>
+                <input id="bjBet" class="bj-input" type="number" min="1" placeholder="min $1"/>
                 <button class="bj-submit" type="submit">
                     PLACE BET
                 </button>

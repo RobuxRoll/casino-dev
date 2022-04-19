@@ -28,6 +28,71 @@ let regUserBalance = [100000];
 let regUserDailyReward = [0];
 let regUserRelationID = [0];
 
+let cards = [
+  'card_club_A',
+  'card_club_2',
+  'card_club_3',
+  'card_club_4',
+  'card_club_5',
+  'card_club_6',
+  'card_club_7',
+  'card_club_8',
+  'card_club_9',
+  'card_club_10',
+  'card_club_J',
+  'card_club_Q',
+  'card_club_K',
+  'card_diamond_A',
+  'card_diamond_2',
+  'card_diamond_3',
+  'card_diamond_4',
+  'card_diamond_5',
+  'card_diamond_6',
+  'card_diamond_7',
+  'card_diamond_8',
+  'card_diamond_9',
+  'card_diamond_10',
+  'card_diamond_J',
+  'card_diamond_Q',
+  'card_diamond_K',
+  'card_hearth_A',
+  'card_hearth_2',
+  'card_hearth_3',
+  'card_hearth_4',
+  'card_hearth_5',
+  'card_hearth_6',
+  'card_hearth_7',
+  'card_hearth_8',
+  'card_hearth_9',
+  'card_hearth_10',
+  'card_hearth_J',
+  'card_hearth_Q',
+  'card_hearth_K',
+  'card_spade_A',
+  'card_spade_2',
+  'card_spade_3',
+  'card_spade_4',
+  'card_spade_5',
+  'card_spade_6',
+  'card_spade_7',
+  'card_spade_8',
+  'card_spade_9',
+  'card_spade_10',
+  'card_spade_J',
+  'card_spade_Q',
+  'card_spade_K'
+]
+
+async function virtualShuffle (array, shuffles) {
+  for (let i = 0; i < (shuffles * array.length); i++) {
+    let number1 = (Math.floor(Math.random() * array.length));
+    let number2 = (Math.floor(Math.random() * array.length));
+    let help = array[number1];
+    array[number1] = array[number2];
+    array[number2] = help;
+  }
+}
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
@@ -130,8 +195,70 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('joinblackjack', args => {
-    console.log('Server: ' + socket.id + ' joined blackjack')
+  socket.on('betBlackjack', args => {
+    let userId = getUserRelationId(args[0]);
+    let bet = args[1];
+    let randomCards = randomNumbersArray(20, cards.length);
+    let playerCards = [
+        cards[randomCards[0]],
+        cards[randomCards[1]],
+        cards[randomCards[2]],
+        cards[randomCards[3]],
+        cards[randomCards[4]],
+        cards[randomCards[5]],
+        cards[randomCards[6]]
+    ]
+    let dealerCards = [
+        cards[randomCards[7]],
+        cards[randomCards[8]],
+        cards[randomCards[9]],
+        cards[randomCards[10]],
+        cards[randomCards[11]],
+        cards[randomCards[12]],
+        cards[randomCards[13]]
+    ]
+    let playerCardCounter = 0;
+    let playerValue = cardValue(playerCards[playerCardCounter]);
+    let dealerCardCounter = 0;
+    let dealerValue = cardValue(dealerCards[dealerCardCounter]);
+
+    regUserBalance[userId] = regUserBalance[userId] - args[1];
+    console.log('User[' + regUserName[userId] + '] betted ' + args[1] + ' on blackjack');
+    io.to(socket.id).emit('updateUser', [args[0], regUserName[userId], regUserBalance[userId]]);
+    io.to(socket.id).emit('startBlackjack', [playerCards[playerCardCounter], playerValue, dealerCards[dealerCardCounter], dealerValue]);
+    playerCardCounter++;
+    dealerCardCounter++;
+
+    socket.on('hitBlackjack', args => {
+      playerValue = (playerValue * 1 + cardValue(playerCards[playerCardCounter]) * 1);
+      if (playerValue === 21) {
+        io.to(socket.id).emit('winBlackjack', [playerCards[playerCardCounter], playerValue]);
+      } else if (playerValue > 21) {
+        io.to(socket.id).emit('lostBlackjack', [playerCards[playerCardCounter], playerValue]);
+      } else {
+        io.to(socket.id).emit('hitBlackjack', [playerCards[playerCardCounter], playerValue]);
+      }
+      playerCardCounter++;
+    });
+
+    socket.on('standBlackjack', args => {
+      let checker = true;
+      while (checker) {
+        dealerValue = (dealerValue * 1 + cardValue(dealerCards[dealerCardCounter]) * 1);
+        io.to(socket.id).emit('dealerBlackjack', [dealerCards[dealerCardCounter], dealerValue]);
+        dealerCardCounter++;
+        if (dealerValue > playerValue) {
+          checker = false;
+        }
+      }
+      if (dealerValue > 21) {
+        console.log()
+        io.to(socket.id).emit('dealerLostBlackjack');
+        regUserBalance[userId] = (regUserBalance[userId] * 1 + bet * 2);
+      } else if (dealerValue <= 21) {
+        io.to(socket.id).emit('dealerWinBlackjack');
+      }
+    })
   });
 });
 
@@ -164,13 +291,30 @@ const getUserRelationId = (relation) => {
   return null;
 }
 
+const getRndInteger = (min, max) => {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+
 const findInArray = (array, find) => {
-  array.forEach(element => {
-    if (element === find) {
+  for(let i = 0; i < array.length; i++) {
+    if (array[i] === find) {
       return true;
     }
-  });
+  }
   return false;
+}
+
+const randomNumbersArray = (length, max) => {
+  let array = [];
+  for(let i = 0; i < length; i++) {
+    let generateNumber = getRndInteger(0, max);
+    if (findInArray(array, generateNumber)) {
+      i--;
+    } else {
+      array.push(generateNumber);
+    }
+  }
+  return array;
 }
 
 const generateString = (length) => {
@@ -180,6 +324,21 @@ const generateString = (length) => {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return result;
+}
+
+const randomFromArray = (array) => {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+const cardValue = (card) => {
+  console.log('Server: CardValue ' + card);
+  let value = card.split('_')[2].toUpperCase();
+  if (value === 'K' || value === 'Q' || value === 'J') {
+    value = 10;
+  } else if (value === 'A') {
+    value = 11;
+  }
+  return value;
 }
 
 const rouletteTimeout = () => {
@@ -219,6 +378,9 @@ const relationID = () => {
   }
   console.log("Server: Update Relations:");
   console.log(regUserRelationID);
+  virtualShuffle(cards, 10000);
+  console.log('Server: Shuffle Cards:');
+  console.log(cards);
   setTimeout(relationID, relationIdInterval);
 }
 

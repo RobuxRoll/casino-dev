@@ -8,7 +8,7 @@ document.getElementById('popup-exit').onclick = () => { popup.style.display = 'n
 let id;
 let balance = 0;
 let username;
-let isRolling = false;
+let isPlaying = false;
 let isLoggedIn = loggedIn();
 function loggedIn() {
     if(getCookie('relationId') != '') {
@@ -54,4 +54,109 @@ document.getElementById('userLoggedIn').onclick = () => {
     window.open("/profile","_self");
 }
 
-socket.emit('joinblackjack');
+const playerValue = document.getElementById('playerValue');
+const playerCards = document.getElementById('playerCards');
+const dealerValue = document.getElementById('dealerValue');
+const dealerCards = document.getElementById('dealerCards');
+
+
+const createCard = (cardName, element) => {
+    const card = document.createElement('div');
+    card.className = 'bj-card';
+    card.style.backgroundImage = 'url("/assets/cards/' + cardName + '.png")';
+    element.appendChild(card);
+}
+
+const clearTable = (element) => {
+    element.innerHTML = ''
+}
+
+const resetTable = (element) => {
+    element.innerHTML = '<div class="bj-card"></div>'
+}
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (isLoggedIn) {
+        if (!isPlaying) {
+            if (document.getElementById('bjBet').value >= 2) {
+                socket.emit('betBlackjack', [id, document.getElementById('bjBet').value]);
+                document.getElementById('form').style.opacity = .5;
+                document.getElementById('form').style.pointerEvents = 'none';
+            } else {
+                popupText.innerHTML = 'You need to bet at least $2';
+                popup.style.display = 'table';
+            }
+        } else {
+            popupText.innerHTML = 'Wait, until you end this game!';
+            popup.style.display = 'table';
+        }
+    } else {
+        popupText.innerHTML = 'You aren\'t logged in yet, <a href="/register">create an account</a> or <a href="/login">log in</a>.';
+        popup.style.display = 'table';
+    }
+});
+
+document.getElementById('bjHitme').onclick = () => {
+    if (isPlaying) {
+        socket.emit('hitBlackjack', id);
+    }
+}
+
+document.getElementById('bjStand').onclick = () => {
+    if (isPlaying) {
+        socket.emit('standBlackjack', id);
+    }
+}
+
+document.getElementById('bjScoreBubble').onclick = () => {
+    window.open('/blackjack', '_self');
+}
+
+socket.on('startBlackjack', function(args) {
+    isPlaying = true;
+    clearTable(playerCards);
+    createCard(args[0], playerCards);
+    playerValue.innerHTML = args[1];
+    clearTable(dealerCards);
+    createCard(args[2], dealerCards);
+    dealerValue.innerHTML = args[3];
+});
+
+socket.on('hitBlackjack', function(args) {
+    createCard(args[0], playerCards);
+    playerValue.innerHTML = args[1];
+});
+
+socket.on('winBlackjack', function(args) {
+    createCard(args[0], playerCards);
+    playerValue.innerHTML = args[1];
+    isPlaying = false;
+    document.getElementById('bjScoreBubble').style.display = 'block';
+    document.getElementById('bjScoreBubbleText').innerHTML = "You've won!";
+});
+
+socket.on('lostBlackjack', function(args) {
+    createCard(args[0], playerCards);
+    playerValue.innerHTML = args[1];
+    isPlaying = false;
+    document.getElementById('bjScoreBubble').style.display = 'block';
+    document.getElementById('bjScoreBubbleText').innerHTML = "You've lost!";
+});
+
+socket.on('dealerBlackjack', function(args) {
+    createCard(args[0], dealerCards);
+    dealerValue.innerHTML = args[1];
+});
+
+socket.on('dealerLostBlackjack', function() {
+    isPlaying = false;
+    document.getElementById('bjScoreBubble').style.display = 'block';
+    document.getElementById('bjScoreBubbleText').innerHTML = "You've won!";
+});
+
+socket.on('dealerWinBlackjack', function() {
+    isPlaying = false;
+    document.getElementById('bjScoreBubble').style.display = 'block';
+    document.getElementById('bjScoreBubbleText').innerHTML = "You've lost!";
+});
