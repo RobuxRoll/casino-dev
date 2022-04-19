@@ -1,0 +1,141 @@
+h1 {
+    color: #FFB300;
+    text-align: center;
+}
+
+h2 {
+    color: #00AAFF;
+    text-align: center;
+}
+
+.content {
+    padding: 20px;
+}
+
+#form {
+    margin-top: 30px;
+}
+
+.bj-submit, .bj-input {
+    background: #48cfad;
+    border: 0;
+    transition: .2s;
+    box-shadow: 0 0 20px transparent;
+    margin: 5px;
+    padding: 14px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 7px;
+
+}
+
+.bj-submit {
+    cursor: pointer;
+}
+
+.bj-submit:hover {
+    color: rgba(255, 255, 255, .5);
+}
+
+.bj-play {
+    cursor: default;
+    margin-top: 45px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    background: #23a484;
+    padding: 30px 10px;
+    border: 15px solid #48cfad;
+    box-shadow: inset 10px 10px rgba(0,0,0,.3);
+    border-radius: 500px;
+    position: relative;
+}
+
+@media ( max-width: 1080px ) {
+    .bj-play {
+        border-radius: 20px;
+    }
+}
+
+.bj-label {
+    margin: 5px auto;
+    width: 150px;
+    font-weight: bold;
+    padding: 5px 0;
+    background: white;
+    border-radius: 20px;
+}
+
+.bj-play-cards {
+    margin: 20px auto;
+    margin-bottom: 50px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.bj-card {
+    width: 60px;
+    height: 90px;
+    border-radius: 5px;
+    border: 5px solid white;
+    background-position: center;
+    background-image: url("/assets/cards/card_back.png");
+    margin: 5px;
+}
+
+.bj-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.bj-buttons > div {
+    width: 120px;
+    position: relative;
+    top: 0;
+    margin: 5px;
+    border-radius: 10px;
+    background: white;
+    padding: 40px 0;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 10px rgba(0,0,0,.6);
+    transition: .2s;
+}
+
+.bj-buttons > div:hover {
+    top: 10px;
+    box-shadow: 0 0 rgba(0,0,0,.6);;
+}
+
+@media ( max-width: 630px ) {
+    .bj-play-cards {
+        margin: 0;
+        margin-bottom: 15px;
+    }
+    .bj-card {
+        transform: scale(.9);
+        margin: 0;
+    }
+    .bj-buttons > div {
+        padding: 10px;
+        margin: 5px;
+        font-size: 14px;
+        width: 100px;
+    }
+}
+
+#bjBlackscreen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 2000px;
+    cursor: not-allowed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+}

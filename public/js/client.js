@@ -11,8 +11,8 @@ let username;
 let isRolling = false;
 let isLoggedIn = loggedIn(); 
 function loggedIn() {
-    if(getCookie('userId') != '') {
-        socket.emit('checkUser', getCookie('userId'));
+    if(getCookie('relationId') != '') {
+        socket.emit('checkUser', getCookie('relationId'));
         return true;
     } else {
         return false;
@@ -23,7 +23,7 @@ function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
+    for(let i = 0; i < ca.length; i++) {
       let c = ca[i];
       while (c.charAt(0) == ' ') {
         c = c.substring(1);
@@ -36,14 +36,18 @@ function getCookie(cname) {
 }
 
 socket.on('updateUser', async function(args) {
-    id = args[0];
-    username = args[1];
-    balance = Math.round(args[2] * 100) / 100;
-    document.getElementById("balance").innerHTML = balance;
-    document.getElementById("username").innerHTML = username;
-    console.log("Server: User Update [" + args + "]");
-    document.getElementById('userLoggedIn').style.display = 'block';
-    document.getElementById('userGuest').style.display = 'none';
+    if (args[1] != null) {
+        id = args[0];
+        username = args[1];
+        balance = Math.round(args[2] * 100) / 100;
+        document.getElementById("balance").innerHTML = balance;
+        document.getElementById("username").innerHTML = username;
+        console.log("Server: User Update [" + args + "]");
+        document.getElementById('userLoggedIn').style.display = 'block';
+        document.getElementById('userGuest').style.display = 'none';
+    } else {
+        document.cookie = "relationId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+    }
 });
 
 document.getElementById('userLoggedIn').onclick = () => {

@@ -11,7 +11,7 @@ logForm.addEventListener('submit', function(e) {
 });
 
 socket.on('userLogin', function(args) {
-    document.cookie = 'userId=' + args[0];
+    document.cookie = 'relationId=' + args[0];
     window.open("/profile","_self");
 });
 

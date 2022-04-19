@@ -13,6 +13,18 @@ body {
     background: #131b3d;
 }
 
+::selection {
+    background: #FFB300;
+    color: black;
+    text-shadow: .2rem .2rem rgba(0,0,0,.3);
+}
+
+::-moz-selection {
+    background: #FFB300;
+    color: black;
+    text-shadow: .2rem .2rem rgba(0,0,0,.3);
+}
+
 a {
     color: white;
     transition: .2s;
@@ -62,6 +74,10 @@ input[type=number] {
     padding: 20px 30px;
     color: white;
     font-weight: bolder;
+}
+
+.header-left > a {
+    text-decoration: none;
 }
 
 .header-icon {
@@ -554,13 +570,13 @@ input[type=number] {
     }
 }
 
-@media ( max-width: 930px ) {
+@media ( max-width: 1040px ) {
     .header-center {
         font-size: 0;
     }
 }
 
-@media ( max-width: 800px ) {
+@media ( max-width: 830px ) {
     #sync-screen > div > span {
         font-size: 20px;
     }
@@ -686,7 +702,7 @@ input[type=number] {
     }
 
     .header-center {
-        width: 200px;
+        width: 100%;
     }
 
     .header-right {
@@ -694,7 +710,7 @@ input[type=number] {
     }
 
     .header-center > a {
-        padding-left: 20px;
+        width: 25%;
     }
 
     .login {
