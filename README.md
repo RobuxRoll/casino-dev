@@ -1,5 +1,5 @@
 ### [github.com/RobuxRoll/casino-dev](https://github.com/RobuxRoll/casino-dev/)
-#### [robuxroll.herokuapp.com](https://robuxroll.herokuapp.com/contact)
+#### [robuxroll.herokuapp.com](https://robuxroll.herokuapp.com)
 ![image](https://raw.githubusercontent.com/RobuxRoll/casino-assets/main/title.png)
 
 
