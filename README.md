@@ -7,7 +7,7 @@
  - Why did we decide to do this project? Our main goal was to do it as **school project**, as a working casino. We are currently still in development but we are happy with how our project is turning up. We are surely going to add more features in the future. More about [here](https://github.com/RobuxRoll/RobuxRoll).
 
 #### Install
- - You can clone this project with **git clone** and install via **nodejs**.
+ - You can clone this project with **git clone** and install via **nodejs**
 ```
 git clone https://github.com/RobuxRoll/casino-dev.git
 npm i
