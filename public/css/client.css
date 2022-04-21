@@ -496,7 +496,7 @@ input[type=number] {
     background: -webkit-linear-gradient(90deg, rgba(71,10,191,1) 0%, rgba(104,10,185,1) 100%);
     background: linear-gradient(90deg, rgba(71,10,191,1) 0%, rgba(104,10,185,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#470abf",endColorstr="#680ab9",GradientType=1);
-    position: absolute;
+    position: sticky;
     width: 100%;
     bottom: 0;
     left: 0;

@@ -132,16 +132,20 @@ socket.on('winBlackjack', function(args) {
     createCard(args[0], playerCards);
     playerValue.innerHTML = args[1];
     isPlaying = false;
-    document.getElementById('bjScoreBubble').style.display = 'block';
-    document.getElementById('bjScoreBubbleText').innerHTML = "You've won!";
+    setTimeout(() => {
+        document.getElementById('bjScoreBubble').style.display = 'block';
+        document.getElementById('bjScoreBubbleText').innerHTML = "You've won!";  
+    }, 1000);
 });
 
 socket.on('lostBlackjack', function(args) {
     createCard(args[0], playerCards);
     playerValue.innerHTML = args[1];
     isPlaying = false;
-    document.getElementById('bjScoreBubble').style.display = 'block';
-    document.getElementById('bjScoreBubbleText').innerHTML = "You've lost!";
+    setTimeout(() => {
+        document.getElementById('bjScoreBubble').style.display = 'block';
+        document.getElementById('bjScoreBubbleText').innerHTML = "You've lost!";  
+    }, 1000);
 });
 
 socket.on('dealerBlackjack', function(args) {
@@ -151,12 +155,21 @@ socket.on('dealerBlackjack', function(args) {
 
 socket.on('dealerLostBlackjack', function() {
     isPlaying = false;
-    document.getElementById('bjScoreBubble').style.display = 'block';
-    document.getElementById('bjScoreBubbleText').innerHTML = "You've won!";
+    setTimeout(() => {
+        document.getElementById('bjScoreBubble').style.display = 'block';
+        document.getElementById('bjScoreBubbleText').innerHTML = "You've won!";  
+    }, 1000);
 });
 
 socket.on('dealerWinBlackjack', function() {
     isPlaying = false;
-    document.getElementById('bjScoreBubble').style.display = 'block';
-    document.getElementById('bjScoreBubbleText').innerHTML = "You've lost!";
+    setTimeout(() => {
+        document.getElementById('bjScoreBubble').style.display = 'block';
+        document.getElementById('bjScoreBubbleText').innerHTML = "You've lost!";  
+    }, 1000);
+});
+
+socket.on('wrongBetBlackjack', function(args) {
+    popupText.innerHTML = 'Insufficient funds - Your balance is ' + balance + '$ (' + (args - balance) + '$)';
+    popup.style.display = 'table';
 });
