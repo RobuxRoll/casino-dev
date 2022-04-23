@@ -12,7 +12,7 @@ h2 {
 }
 
 .bj-submit, .bj-input {
-    background: #48cfad;
+    background: rgba(0,0,0,.3);
     border: 0;
     transition: .2s;
     box-shadow: 0 0 20px transparent;
@@ -39,10 +39,10 @@ h2 {
     margin-bottom: 20px;
     width: 100%;
     text-align: center;
-    background: #23a484;
-    padding: 30px 10px;
-    border: 15px solid #48cfad;
-    box-shadow: inset 10px 10px rgba(0,0,0,.3);
+    padding: 20px 10px;
+    background: rgba(0,0,0,.2);
+    border: 10px solid rgba(0,0,0,.2);
+    z-index: 1;
     border-radius: 400px;
     position: relative;
 }
@@ -52,6 +52,30 @@ h2 {
         margin-top: 0;
         margin-bottom: 0;
         border-radius: 20px;
+    }
+}
+
+.bj-table-icon {
+    position: absolute;
+    width: 30%;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+    fill: rgba(0,0,0,.3);
+    overflow: visible;
+    pointer-events: none;
+}
+
+@media ( max-width: 1080px ) {
+    .bj-table-icon {
+        width: 40%;
+    }
+}
+
+@media ( max-width: 580px ) {
+    .bj-table-icon {
+        width: 70%;
     }
 }
 
@@ -132,6 +156,7 @@ h2 {
 }
 
 #bjScoreBubble {
+    z-index: 8;
     padding: 30px 50px;
     background: white;
     font-size: 18px;

@@ -167,8 +167,7 @@ io.on('connection', (socket) => {
      * Database Check if User Exists, then Login
      */
     if (userExists(args[0], args[1])) {
-      console.log("Request Login: " + args[0] + " Success");
-      console.log("Request Login: Token " + regUserRelationID[getUserId(args[0])])
+      console.log("Request Login: " + args[0] + " Success [" + getUserId(args[0]) + "]")
       let id = getUserId(args[0]);
       io.to(socket.id).emit('userLogin', [id, args[0], regUserBalance[id]]);
     } else {
@@ -323,7 +322,7 @@ const randomNumbersArray = (length, max) => {
 
 const generateString = (length) => {
   let result = '';
-  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=';
+  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$';
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
@@ -335,7 +334,6 @@ const randomFromArray = (array) => {
 }
 
 const cardValue = (card) => {
-  console.log('Server: CardValue ' + card);
   let value = card.split('_')[2].toUpperCase();
   if (value === 'K' || value === 'Q' || value === 'J') {
     value = 10;

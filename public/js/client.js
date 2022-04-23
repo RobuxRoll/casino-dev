@@ -1,4 +1,4 @@
-const socket = io("https://robuxroll.herokuapp.com");
+const socket = io(); //"https://robuxroll.herokuapp.com"
 
 const popup = document.getElementById('popup');
 const popupText = document.getElementById('popup-text');

@@ -1,4 +1,4 @@
-const socket = io("https://robuxroll.herokuapp.com");
+const socket = io(); //"https://robuxroll.herokuapp.com"
 
 const popup = document.getElementById('popup');
 const popupText = document.getElementById('popup-text');
@@ -78,17 +78,22 @@ const resetTable = (element) => {
 form.addEventListener('submit', function(e) {
     e.preventDefault();
     if (isLoggedIn) {
-        if (!isPlaying) {
-            if (document.getElementById('bjBet').value >= 2) {
-                socket.emit('betBlackjack', [id, document.getElementById('bjBet').value]);
-                document.getElementById('form').style.opacity = .5;
-                document.getElementById('form').style.pointerEvents = 'none';
+        if (document.getElementById('bjBet').value <= balance) {
+            if (!isPlaying) {
+                if (document.getElementById('bjBet').value >= 2) {
+                    socket.emit('betBlackjack', [id, document.getElementById('bjBet').value]);
+                    document.getElementById('form').style.opacity = .5;
+                    document.getElementById('form').style.pointerEvents = 'none';
+                } else {
+                    popupText.innerHTML = 'You need to bet at least $2';
+                    popup.style.display = 'table';
+                }
             } else {
-                popupText.innerHTML = 'You need to bet at least $2';
+                popupText.innerHTML = 'Wait, until you end this game!';
                 popup.style.display = 'table';
             }
         } else {
-            popupText.innerHTML = 'Wait, until you end this game!';
+            popupText.innerHTML = 'Insufficient funds - Your balance is ' + balance + '$ (' + (document.getElementById('bjBet').value - balance) + '$)';
             popup.style.display = 'table';
         }
     } else {
@@ -131,6 +136,7 @@ socket.on('hitBlackjack', function(args) {
 socket.on('winBlackjack', function(args) {
     createCard(args[0], playerCards);
     playerValue.innerHTML = args[1];
+    playerValue.style.color = 'greenyellow';
     isPlaying = false;
     setTimeout(() => {
         document.getElementById('bjScoreBubble').style.display = 'block';
@@ -141,6 +147,7 @@ socket.on('winBlackjack', function(args) {
 socket.on('lostBlackjack', function(args) {
     createCard(args[0], playerCards);
     playerValue.innerHTML = args[1];
+    playerValue.style.color = 'red';
     isPlaying = false;
     setTimeout(() => {
         document.getElementById('bjScoreBubble').style.display = 'block';
@@ -155,6 +162,7 @@ socket.on('dealerBlackjack', function(args) {
 
 socket.on('dealerLostBlackjack', function() {
     isPlaying = false;
+    dealerValue.style.color = 'red';
     setTimeout(() => {
         document.getElementById('bjScoreBubble').style.display = 'block';
         document.getElementById('bjScoreBubbleText').innerHTML = "You've won!";  
@@ -163,6 +171,7 @@ socket.on('dealerLostBlackjack', function() {
 
 socket.on('dealerWinBlackjack', function() {
     isPlaying = false;
+    dealerValue.style.color = 'greenyellow';
     setTimeout(() => {
         document.getElementById('bjScoreBubble').style.display = 'block';
         document.getElementById('bjScoreBubbleText').innerHTML = "You've lost!";  
