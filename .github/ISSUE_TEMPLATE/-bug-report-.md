@@ -7,11 +7,8 @@ assignees: ''
 
 ---
 
-**Describe the bug**
+**Description**
 What is the bug in general. Describe in detail if possible.
-
-**Time when it happened**
-If you know when it happened, we could potentinaly see the error in our console
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
