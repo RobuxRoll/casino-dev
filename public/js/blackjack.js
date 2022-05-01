@@ -1,4 +1,4 @@
-const socket = io("https://robuxroll.herokuapp.com");
+const socket = io();
 
 const popup = document.getElementById('popup');
 const popupText = document.getElementById('popup-text');
@@ -73,6 +73,15 @@ const clearTable = (element) => {
 
 const resetTable = (element) => {
     element.innerHTML = '<div class="bj-card"></div>'
+}
+
+let bjTable = document.getElementById('bjTable');
+document.getElementById('bjTableSpoiler').onclick = () => {
+    if (bjTable.style.display === 'table') {
+        bjTable.style.display = 'none';
+    } else {
+        bjTable.style.display = 'table';
+    }
 }
 
 form.addEventListener('submit', function(e) {

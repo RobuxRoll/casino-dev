@@ -2,7 +2,6 @@
     font-size: 128px;
     padding: 0;
     margin: 0;
-    line-break: 0;
 }
 
 .center-everything {
@@ -115,11 +114,11 @@ h3, span, p {
 }
 
 .bg-demo2 {
-    display:table;
-    background: url('/assets/bg_demo.png');
-    background-size: cover;
-    background-position: center;
-    box-shadow: inset 0 0 20px 20px #131b3d;
+    /*display:table;*/
+    /*background: url('/assets/bg_demo.png');*/
+    /*background-size: cover;*/
+    /*background-position: center;*/
+    /*box-shadow: inset 0 0 20px 20px #131b3d;*/
     padding: 20px 50px;
 }
 

@@ -233,6 +233,7 @@ io.on('connection', (socket) => {
         playerValue = (playerValue * 1 + cardValue(playerCards[playerCardCounter]) * 1);
         if (playerValue === 21) {
           io.to(socket.id).emit('winBlackjack', [playerCards[playerCardCounter], playerValue]);
+          regUserBalance[userId] = (regUserBalance[userId] * 1 + bet * 2);
         } else if (playerValue > 21) {
           io.to(socket.id).emit('lostBlackjack', [playerCards[playerCardCounter], playerValue]);
         } else {

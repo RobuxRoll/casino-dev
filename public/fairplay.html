@@ -65,6 +65,7 @@
             <br>
           </p>
           <h2>HOW IS FAIRNESS TREATED?</h2>
+          <h3>ROULETTE</h3>
           <p>
             Our infrastructure isn't the best, we know that. We chose to treat this problem via server itself.<br>
             Server is generating random number between 1 to 31, and then decides who has won accordingly.<br>
@@ -77,6 +78,34 @@
   io.emit('spin', [random, time]);
   setTimeout(rouletteTimeout, time);
 }</code></pre>
+          <h3>BLACKJACK</h3>
+          <p>
+            Our server is updating 8th hour with the timer. With the new reset new cards are "shuffled".<br>
+            Server is randomly shuffling cards up to 10000 shuffles and gives each player random cards.<br>
+            <br>
+            For example, shuffled cards look like this:
+          </p>
+          <pre class="code"><code class="mono">Server: Shuffle Cards:
+[
+  'card_diamond_A', 'card_hearth_5',   'card_hearth_9',
+  'card_club_Q',    'card_hearth_Q',   'card_hearth_8',
+  'card_spade_3',   'card_club_10',    'card_club_3',
+  'card_spade_J',   'card_spade_5',    'card_spade_10',
+  'card_diamond_6', 'card_hearth_7',   'card_club_6',
+  'card_spade_9',   'card_hearth_2',   'card_hearth_K',
+  'card_diamond_Q', 'card_spade_6',    'card_hearth_6',
+  'card_hearth_4',  'card_club_A',     'card_diamond_7',
+  'card_diamond_3', 'card_club_7',     'card_diamond_8',
+  'card_spade_8',   'card_diamond_9',  'card_hearth_J',
+  'card_club_K',    'card_club_4',     'card_spade_Q',
+  'card_spade_A',   'card_diamond_2',  'card_hearth_A',
+  'card_diamond_4', 'card_hearth_3',   'card_club_J',
+  'card_spade_K',   'card_spade_2',    'card_diamond_5',
+  'card_diamond_K', 'card_hearth_10',  'card_club_8',
+  'card_club_5',    'card_spade_7',    'card_diamond_J',
+  'card_club_9',    'card_diamond_10', 'card_club_2',
+  'card_spade_4'
+]</code></pre>
         </div>
       </div>
       <div id="popup">

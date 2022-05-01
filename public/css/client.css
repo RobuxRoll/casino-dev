@@ -11,6 +11,8 @@ body {
     height: 100%;
     margin: 0;
     background: #131b3d;
+    background: url('/assets/bg_nebula.png');
+    background-size: cover;
 }
 
 ::selection {
