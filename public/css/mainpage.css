@@ -35,6 +35,10 @@ p {
     background-size: cover;
     background-position: center;
     box-shadow: inset 0 0 50px 50px #131b3d;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .game {
@@ -55,6 +59,21 @@ p {
 .game > p {
     font-size: 12px;
     opacity: .7;
+}
+
+@media ( max-width: 620px ) {
+    .game > p {
+        display: none;
+    }
+    .game {
+        width: 90px;
+    }
+    .game > img {
+        width: 80px;
+    }
+    .game > h3 {
+        font-size: 14px;
+    }
 }
 
 button {

@@ -12,6 +12,7 @@ body {
     margin: 0;
     background: #131b3d;
     background: url('/assets/bg_nebula.png');
+    background-position: center;
     background-size: cover;
 }
 
